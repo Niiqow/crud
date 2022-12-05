@@ -1,0 +1,9 @@
+{
+
+    "/*":{
+        "target":"https://xtxk2o5qtl.execute-api.us-east-1.amazonaws.com",
+        "secure": false,
+        "logLevel": "debug"
+    }
+
+}

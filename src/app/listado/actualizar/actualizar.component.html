@@ -1,0 +1,54 @@
+<app-navbar></app-navbar>
+
+
+<div class="page-heading" id="top">
+
+</div>
+<section class="section" id="products">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-heading">
+                    <h2>Actualizar Producto</h2>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <form autocomplete="off" [formGroup]="miFormulario" (ngSubmit)="actualizar()">
+        <div class="col mb-5 text-right">
+            <button class="btn btn-danger" (click)="borrarProducto()">Eliminar este producto</button>
+        </div>
+        <div class="row">
+
+          
+            Nombre:
+            <input type="text" formControlName="nombre" class="form-control" value="{{nombre}}" placeholder="Nombre...">
+
+            <br>
+
+            Categoría:
+            <select formControlName="categoria" class="form-control" >
+             
+                <option *ngFor='let consola of Consolas' [selected]="consola.name === categoria" [value]="consola.name">{{consola.name}}</option>  
+            </select>
+
+            <br>
+            Precio:
+            <input type="number" formControlName="precio" class="form-control" value="{{precio}}" placeholder="Precio...">
+
+
+
+
+            <div class="col text-center mt-5">
+                <button [disabled]="(miFormulario.invalid)" class="btn btn-warning">Guardar Cambios</button>
+            </div>
+
+        </div>
+        </form>
+    </div>
+
+
+</section>
+<app-footer></app-footer>
