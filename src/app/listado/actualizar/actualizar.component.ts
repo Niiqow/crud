@@ -2,9 +2,10 @@ import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { ProductosService } from '../services/productos.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Producto } from '../models/producto.model';
 import { consolas } from '../interfaces/consolas';
+import { Body } from '../interfaces/interfaces';
 
 @Component({
   selector: 'app-actualizar',
@@ -14,38 +15,50 @@ import { consolas } from '../interfaces/consolas';
 
 
 export class ActualizarComponent implements OnInit{
- idProducto!: string;
+ idProducto!: any;
 nombre! : string;
 categoria! : string;
 precio! : number;
 Consolas: any = consolas;
-
- public productos: Producto[] = [];
+productos!: any;
  constructor(private fb: FormBuilder,
   private productosService:ProductosService,
   private router: Router) { 
     
 
-
+  this.idProducto = localStorage.getItem('id');
   this.obtenerDatos();
-  
+//console.log(this.idProducto)
 
    }
   ngOnInit(): void {
-
+ 
   }
 
+
+
   obtenerDatos(){
-    this.productosService.setIdProducto().subscribe( ({resp} ) =>{
-      this.idProducto = resp.msg._id;
-      this.nombre = resp.msg.nombre;
-      this.categoria = resp.msg.categoria;
-      this.precio = resp.msg.precio;
-   
+
+
+
+    this.productosService.setIdProducto(this.idProducto).subscribe( ({resp} ) =>{
+
+      this.productos = resp.body;
+
+     
+     this.nombre = this.productos.nombre;
+     this.categoria = this.productos.categoria; 
+     this.precio = this.productos.precio;
   
 
-        })
+     this.miFormulario.controls['nombre'].setValue(this.productos.nombre);
+     this.miFormulario.controls['categoria'].setValue(this.productos.categoria);
+     this.miFormulario.controls['precio'].setValue(this.productos.precio);     
 
+    
+ 
+        })
+        //console.log(this.miFormulario.value)
   }
 
   miFormulario: FormGroup<any> = this.fb.group({
@@ -55,6 +68,7 @@ Consolas: any = consolas;
   });
 
   actualizar(){
+    
     const Toast = Swal.mixin({
       toast: true,
       position: 'top-end',
@@ -66,7 +80,7 @@ Consolas: any = consolas;
         toast.addEventListener('mouseleave', Swal.resumeTimer)
       }
     })
-    console.log( this.miFormulario.value );
+    //console.log( this.miFormulario.value );
 
     if ( this.miFormulario.invalid ) {
       return;

@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Info, Product } from '../interfaces/interfaces';
 import { map, tap } from 'rxjs';
 import { NuevoProducto } from '../interfaces/nuevo-producto';
-import { Busqueda } from '../interfaces/buscar-producto';
+import { Busqueda } from '../interfaces/interfaces';
 import { consolas } from '../interfaces/consolas';
 @Injectable({
   providedIn: 'root'
@@ -29,11 +28,10 @@ export class ProductosService {
   
   getProductos() {
 
-  return this.http.get<Info>( `${this.url}`, this.headers ).pipe(
+  return this.http.get<Busqueda>( `${this.url}`, this.headers ).pipe(
     map( resp => {
    
 
-   
 
      
       return {
@@ -73,21 +71,21 @@ eliminarProducto(id: string){
 
 getIdProducto(id: string){
 //obtiene el id de productosComponent
- 
-  this.idProducto = id;
 
+  this.idProducto = id;
+  localStorage.setItem('id', this.idProducto);
 }
  consolas(): any{
 
   
    return consolas;
 }
-setIdProducto(){
+setIdProducto(id: string){
 
 
-  return this.http.get<Busqueda>( `${this.url}/`+this.idProducto, this.headers ).pipe(
+  return this.http.get<Busqueda>( `${this.url}/`+id, this.headers ).pipe(
     map( resp => {
-    
+   
       return {
         resp
       };

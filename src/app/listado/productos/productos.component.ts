@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./productos.component.css']
 })
 export class ProductosComponent implements OnInit {
-  public productos: Producto[] = [];
+  public productos!: any;
  //public link! : string;
   constructor(private productosService: ProductosService,
               private router: Router,
@@ -22,10 +22,12 @@ export class ProductosComponent implements OnInit {
   }
 
   buscar(){
-    this.productosService.getProductos().subscribe( ({ resp }) =>{
+    this.productosService.getProductos().subscribe( ({resp} ) =>{
 
-  
-     this.productos = resp.products;
+      this.productos = resp.body
+
+    
+
     })
     
   }

@@ -16,7 +16,7 @@
         </div>
     </div>
     <div class="container">
-        <form autocomplete="off" [formGroup]="miFormulario" (ngSubmit)="actualizar()">
+        <form autocomplete="off" [formGroup]="miFormulario">
         <div class="col mb-5 text-right">
             <button class="btn btn-danger" (click)="borrarProducto()">Eliminar este producto</button>
         </div>
@@ -42,7 +42,7 @@
 
 
             <div class="col text-center mt-5">
-                <button [disabled]="(miFormulario.invalid)" class="btn btn-warning">Guardar Cambios</button>
+                <button [disabled]="(miFormulario.invalid)" (click)="actualizar()" class="btn btn-warning">Guardar Cambios</button>
             </div>
 
         </div>
