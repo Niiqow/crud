@@ -5,6 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ListadoModule } from './listado/listado.module';
 import { HttpClientModule } from '@angular/common/http';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -15,7 +17,8 @@ import { HttpClientModule } from '@angular/common/http';
     ListadoModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }
